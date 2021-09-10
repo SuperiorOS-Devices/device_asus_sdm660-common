@@ -62,21 +62,8 @@ function blob_fixup() {
     case "${1}" in
 
     # remove android.hidl.base dependency
-    lib64/libfm-hci.so | lib64/libwfdnative.so | lib/libfm-hci.so | lib/libwfdnative.so)
+    lib64/libfm-hci.so | lib/libfm-hci.so)
         "${PATCHELF}" --remove-needed "android.hidl.base@1.0.so" "${2}"
-        ;;
-
-    system/lib/libwfdaudioclient.so)
-        "${PATCHELF}" --set-soname "libwfdaudioclient.so" "${2}"
-        ;;
-
-    system/lib/libwfdmediautils.so)
-        "${PATCHELF}" --set-soname "libwfdmediautils.so" "${2}"
-        ;;
-
-    system/lib/libwfdmmsink.so)
-        "${PATCHELF}" --add-needed "libwfdaudioclient.so" "${2}"
-        "${PATCHELF}" --add-needed "libwfdmediautils.so" "${2}"
         ;;
 
     product/lib64/libdpmframework.so)
